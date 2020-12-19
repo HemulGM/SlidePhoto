@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Ani, FMX.Effects;
+  FMX.Layouts, FMX.Ani, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls;
 
 type
   TForm1 = class(TForm)
@@ -17,6 +17,8 @@ type
     ShadowEffectSwipe: TShadowEffect;
     Rectangle2: TRectangle;
     ShadowEffect1: TShadowEffect;
+    Rectangle3: TRectangle;
+    Label1: TLabel;
     procedure Rectangle1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure LayoutSwipeFrameMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
     procedure LayoutSwipeFrameMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
@@ -37,6 +39,9 @@ var
   Form1: TForm1;
 
 implementation
+
+uses
+  Math;
 
 {$R *.fmx}
 
@@ -67,7 +72,7 @@ begin
       A := -0.2 * A
     else
       A := 0.2 * A;
-    FSwipeObject.RotationAngle := A; //-90..90
+    FSwipeObject.RotationAngle := Min(Max(-30, A), 30); //-90..90
     ShadowEffectSwipe.UpdateParentEffects;
     FSwipePos := Screen.MousePos;
   end;
